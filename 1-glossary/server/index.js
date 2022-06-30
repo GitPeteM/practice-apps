@@ -3,8 +3,7 @@ const express = require("express");
 const path = require("path");
 
 const app = express();
-const {saveWord} = require("./db.js");
-const {getWords} = require('./db.js');
+const {saveWord, getWords} = require("./db.js");
 
 
 // Serves up all static and generated assets in ../client/dist.
@@ -20,21 +19,20 @@ app.put('/glossary', (req, res) => {
 })
 
 app.get('/glossary', (req, res) => {
+  // console.log('server get');
   getWords()
-    .then( wordList => {
-      // console.log('get', wordList);
-      res.status(201).send(wordList);
+    .then( wordData => {
+      res.status(201).send(wordData);
     })
     .catch( err => {
-      res.status(404).send(err);
+      res.status(404).send("There are no words in the glossary.");
     })
-
 })
 
 app.post('/glossary', (req, res) => {
-  // console.log(req);
+  // console.log('inside post:', req.body);
 
-  saveWord(req.query)
+  saveWord(req.body)
     .then( words => {
       // console.log('post', req.body);
       res.sendStatus(200);

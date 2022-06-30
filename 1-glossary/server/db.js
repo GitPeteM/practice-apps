@@ -10,7 +10,7 @@ let wordSchema = new mongoose.Schema({
 let Glossary = mongoose.model('Glossary', wordSchema);
 
 let saveWord = (wordObj) => {
-  console.log('saveWord', wordObj);
+  // console.log('saveWord', wordObj);
 
   let input = new Glossary({
     word: wordObj.word,
@@ -23,15 +23,7 @@ let saveWord = (wordObj) => {
 // let Peter = new Glossary({word: 'Pete', definition: 'We did It'});
 // console.log(Peter);
 
-let getWords = () => {
-  return Glossary.find({}).exec();
-  // return new Promise({resolve, reject} => {
-  //   Glossary.find({})
-  //     .then( results => {
-  //       resolve(results);
-  //     })
-  // })
-}
+let getWords = () => {return Glossary.find();}
 
 let getSpecificWord = () => {}
 

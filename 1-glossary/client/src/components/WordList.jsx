@@ -6,16 +6,12 @@ var WordList = ({words}) => {
 
   return (
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th colspan="2"> List of Words </th>
-          </tr>
-        </thead>
+      <ol>
+        <h2> List of Words </h2>
         {words.map((wordSet, index) =>
         <WordListEntry key={index} word={wordSet} />
         )}
-      </table>
+      </ol>
     </div>
   )
 
