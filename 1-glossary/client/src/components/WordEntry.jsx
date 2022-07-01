@@ -11,7 +11,6 @@ class WordEntry extends React.Component {
   }
 
   handleSumbit () {
-    // alert("We Clickin!", event);
     //A function will be passed from App.jsx that we will then pass back the current state value.
     this.props.addWord(this.state);
   }

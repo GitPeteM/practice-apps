@@ -9,9 +9,7 @@ let wordSchema = new mongoose.Schema({
 
 let Glossary = mongoose.model('Glossary', wordSchema);
 
-let saveWord = (wordObj) => {
-  // console.log('saveWord', wordObj);
-
+exports.saveWord = (wordObj) => {
   let input = new Glossary({
     word: wordObj.word,
     definition: wordObj.definition
@@ -20,17 +18,13 @@ let saveWord = (wordObj) => {
 
 }
 
-// let Peter = new Glossary({word: 'Pete', definition: 'We did It'});
-// console.log(Peter);
+exports.getWords = () => {return Glossary.find();}
 
-let getWords = () => {return Glossary.find();}
+exports.removeWord = (wordObj) => {return Glossary.deleteOne({word: wordObj.word});}
 
-let getSpecificWord = () => {}
-
-
-
-module.exports.saveWord = saveWord;
-module.exports.getWords = getWords;
+exports.updateWord = (wordObj) => {
+  return Glossary.updateOne({word: wordObj.word}, {definition: wordObj.definition});
+}
 
 // 1. Use mongoose to establish a connection to MongoDB
 // 2. Set up any schema and models needed by the app

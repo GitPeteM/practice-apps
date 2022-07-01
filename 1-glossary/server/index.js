@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 
 const app = express();
-const {saveWord, getWords} = require("./db.js");
+const {saveWord, getWords, removeWord, updateWord} = require("./db.js");
 
 
 // Serves up all static and generated assets in ../client/dist.
@@ -11,15 +11,27 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
 app.use(express.json());
 
 app.delete('/glossary', (req, res) => {
+  removeWord(req.body)
+    .then( results =>{
+      res.sendStatus(201)
+    })
+    .catch( err => {
+      res.status(404).send("The request word was not found.");
+    })
 
 })
 
 app.put('/glossary', (req, res) => {
-
+  updateWord(req.body)
+    .then( results => {
+      res.sendStatus(204)
+    })
+    .catch( err => {
+      res.status(404).send("Could not save changes to Glossary.");
+    })
 })
 
 app.get('/glossary', (req, res) => {
-  // console.log('server get');
   getWords()
     .then( wordData => {
       res.status(201).send(wordData);
@@ -30,11 +42,9 @@ app.get('/glossary', (req, res) => {
 })
 
 app.post('/glossary', (req, res) => {
-  // console.log('inside post:', req.body);
 
   saveWord(req.body)
     .then( words => {
-      // console.log('post', req.body);
       res.sendStatus(200);
     })
     .catch( err => {
