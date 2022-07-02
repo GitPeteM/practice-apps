@@ -1,9 +1,22 @@
 import React from 'react'
 
-const Confirmation = () => {
+const Confirmation = ({prevStep, submitForm, values}) => {
+
+  const priorForm = e => {
+    e.preventDefault();
+    prevStep();
+  }
+
+  const submit = e => {
+    e.preventDefault()
+    submitForm();
+  }
+
   return (
     <div>
-      <h1>Hello World</h1>
+      <form>
+
+      </form>
     </div>
   )
 }

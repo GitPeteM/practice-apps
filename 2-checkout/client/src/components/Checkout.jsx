@@ -1,5 +1,8 @@
-import React from 'react'
-import UserInfo from './Checkout/UserInfo.jsx'
+import React from 'react';
+import UserInfo from './Checkout/UserInfo.jsx';
+import ShippingInfo from './Checkout/ShippingInfo.jsx';
+import PaymentInfo from './Checkout/PaymentInfo.jsx';
+import Confirmation from './Checkout/Confirmation.jsx';
 
 
 export default class Checkout extends React.Component {
@@ -21,14 +24,18 @@ export default class Checkout extends React.Component {
       cvv: '',
       billingZipCode: ''
     }
+    this.prevStep = this.prevStep.bind(this);
+    this.nextStep = this.nextStep.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.submitForm = this.submitForm.bind(this);
   }
 
-  prevStep() => {
+  prevStep() {
     const { step } = this.state;
     this.setState({step: step - 1 });
   }
 
-  nextStep() => {
+  nextStep() {
     const { step } = this.state;
     this.setState({step: step + 1});
   }
@@ -38,7 +45,10 @@ export default class Checkout extends React.Component {
 
   }
 
+  submitForm() {
+    // invoke a function in app.jsx that activates an AXIOS post request
 
+  }
 
   render() {
     let { step } = this.state;
@@ -75,7 +85,7 @@ export default class Checkout extends React.Component {
         return (
           <Confirmation
           prevStep={ this.prevStep }
-          nextStep={ this.nextStep }
+          submitForm={ this.submitForm }
           values={ values }
           />
         )

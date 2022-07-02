@@ -1,9 +1,22 @@
 import React from 'react'
 
-const UserInfo = () => {
+const UserInfo = ({ nextStep, handleChange, values}) => {
+
+  const nextForm = e => {
+    e.preventDefault()
+    nextStep();
+  }
+
+
   return (
     <div>
-      <h1>Hello World</h1>
+      <form>
+        User Information
+        <input type='text' value={values.name} onChange={handleChange('name')} placeholder='Name Here' />
+        <input type='text' value={values.email} onChange={handleChange('email')} placeholder='Email Here' />
+        <input type='text' value={values.password} onChange={handleChange('password')} placeholder='Password Here' />
+        <button onClick={ nextForm }> Next </button>
+      </form>
     </div>
   )
 }
