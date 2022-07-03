@@ -13,12 +13,54 @@ const db = Promise.promisifyAll(connection, { multiArgs: true });
 
 db.connectAsync()
   .then(() => console.log(`Connected to MySQL as id: ${db.threadId}`))
-  .then(() =>
-    // Expand this table definition as needed:
+  // .then(() => {
+  //   return db.queryAsync(
+  //     `CREATE DATABASE checkout`
+  //   );
+  // })
+  // .then(() => {
+  //   return db.queryAsync(
+  //     `USE checkout`
+  //   );
+  // })
+  .then(() => {
+    return db.queryAsync(
+      `CREATE TABLE IF NOT EXISTS user (
+        session_id VARCHAR(100) UNIQUE,
+        name VARCHAR(50) NOT NULL,
+        email VARCHAR(50) NOT NULL,
+        password VARCHAR(30) NOT NULL,
+        PRIMARY KEY (session_id)
+      );`
+    )
+  })
+  .then( () =>
     db.queryAsync(
-      "CREATE TABLE IF NOT EXISTS responses (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY)"
+      `CREATE TABLE IF NOT EXISTS orders (
+        order_id INT AUTO_INCREMENT,
+        addressone VARCHAR(50) NOT NULL,
+        addresstwo VARCHAR(50),
+        city VARCHAR(20) NOT NULL,
+        zipcode VARCHAR(20) NOT NULL,
+        phonenumber VARCHAR(20),
+        creditcard VARCHAR(20) NOT NULL,
+        expiration VARCHAR(10) NOT NULL,
+        cvv VARCHAR(5) NOT NULL,
+        billingzip VARCHAR(20) NOT NULL,
+        user_id VARCHAR(100),
+        PRIMARY KEY (order_id),
+        FOREIGN KEY (user_id) REFERENCES user(session_id)
+      );`
     )
   )
   .catch((err) => console.log(err));
 
 module.exports = db;
+
+
+
+// NOTES :
+// create database inside the terminal. Cant create the database inside of db.js.
+// Were PromisyfingAll the connect and queries, therefore we need to add ASync at the end of each function.
+
+

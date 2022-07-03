@@ -14,9 +14,8 @@ const Confirmation = ({prevStep, submitForm, values}) => {
 
   return (
     <div>
-      <form>
-
-      </form>
+      <button onClick={ priorForm }> Previous </button>
+      <button onClick={ submit }> Submit Order </button>
     </div>
   )
 }

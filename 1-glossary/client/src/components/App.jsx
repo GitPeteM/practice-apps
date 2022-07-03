@@ -38,7 +38,7 @@ class App extends React.Component {
       .then((wordData) => {
         this.setState({ glossary: wordData.data })
       })
-      .catch((error) => alert("An error occured collecting the glossary list."));
+      .catch((error) => console.log("An error occured collecting the glossary list.", error));
   }
 
   //Axios PUT request on Edit Button(wordListEntry)

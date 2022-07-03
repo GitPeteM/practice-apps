@@ -3,6 +3,7 @@ import UserInfo from './Checkout/UserInfo.jsx';
 import ShippingInfo from './Checkout/ShippingInfo.jsx';
 import PaymentInfo from './Checkout/PaymentInfo.jsx';
 import Confirmation from './Checkout/Confirmation.jsx';
+import Axios from 'axios'
 
 
 export default class Checkout extends React.Component {
@@ -46,8 +47,8 @@ export default class Checkout extends React.Component {
   }
 
   submitForm() {
-    // invoke a function in app.jsx that activates an AXIOS post request
-
+    // console.log('checkout', this.state)
+    this.props.hideCheckoutButton(this.state);
   }
 
   render() {
